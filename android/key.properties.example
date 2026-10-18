@@ -1,0 +1,5 @@
+storePassword=replace-with-upload-keystore-password
+keyPassword=replace-with-upload-key-password
+keyAlias=upload
+# Relative to android/, or an absolute path. Never commit the keystore.
+storeFile=upload-keystore.jks

@@ -1,0 +1,19 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - .work/**
+    - lib/l10n/app_localizations*.dart
+    - build/**
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    # This is an application, not a published package.
+    public_member_api_docs: false
+    # Riverpod provider declarations carry their type in the constructor's
+    # generic arguments; annotating each one again adds noise only.
+    specify_nonobvious_property_types: false
