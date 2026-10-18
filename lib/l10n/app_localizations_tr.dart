@@ -270,6 +270,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noChildren => 'Hesabınıza henüz bağlı bir çocuk yok.';
 
   @override
+  String get waitingForStudentLink =>
+      'Okul bağlantınız hazır. Okuldan veli kaydınızı çocuğunuzla ilişkilendirmesini isteyin. Okul bu bağlantıyı eklediğinde çocuğunuzun bilgileri burada görünecek. Yenilemek için Tekrar kontrol et düğmesine dokunun.';
+
+  @override
   String get tabOverview => 'Genel';
 
   @override

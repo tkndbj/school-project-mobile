@@ -90,6 +90,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           _code.clear();
           showSnack(context, l10n.inviteLinked(result.schoolName ?? ''));
           await ref.read(preferredSideProvider.notifier).choose(AppSide.parent);
+          if (!mounted) return;
           ref.invalidate(childrenProvider);
           await _reloadAndGoHome();
         case InviteRedemptionStatus.invalid:

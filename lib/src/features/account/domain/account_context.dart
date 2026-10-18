@@ -47,6 +47,20 @@ class SchoolMembership {
   bool hasModule(SchoolModule module) => enabledModules.contains(module);
 }
 
+/// An active school with a guardian record linked to the signed-in account.
+@immutable
+class GuardianSchool {
+  const GuardianSchool({required this.schoolId, required this.schoolName});
+
+  factory GuardianSchool.fromJson(Json json) => GuardianSchool(
+    schoolId: json.requireString('school_id'),
+    schoolName: json.requireString('school_name'),
+  );
+
+  final String schoolId;
+  final String schoolName;
+}
+
 /// Result of `my_account_context()`: everything needed to route a user.
 @immutable
 class AccountContext {
@@ -55,6 +69,7 @@ class AccountContext {
     required this.isPlatformAdmin,
     required this.memberships,
     required this.childrenCount,
+    this.guardianSchools = const [],
   });
 
   factory AccountContext.fromJson(Json json) => AccountContext(
@@ -65,17 +80,22 @@ class AccountContext {
         SchoolMembership.fromJson(m),
     ],
     childrenCount: json.optInt('children_count') ?? 0,
+    guardianSchools: [
+      for (final school in json.optObjectList('guardian_schools'))
+        GuardianSchool.fromJson(school),
+    ],
   );
 
   final String userId;
   final bool isPlatformAdmin;
   final List<SchoolMembership> memberships;
   final int childrenCount;
+  final List<GuardianSchool> guardianSchools;
 
   /// Sides of the mobile app this account can use.
   Set<AppSide> get availableSides => {
     if (memberships.isNotEmpty) AppSide.school,
-    if (childrenCount > 0) AppSide.parent,
+    if (childrenCount > 0 || guardianSchools.isNotEmpty) AppSide.parent,
   };
 
   SchoolMembership? membershipFor(String? schoolId) {

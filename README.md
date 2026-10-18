@@ -61,10 +61,28 @@ Supabase session with `signInWithIdToken`.
 
 ### Password reset
 
-Staff use email + password (accounts are created by invitation from the web
+Parents and staff use email + password (accounts are created by invitation from the web
 panel; there is no public sign-up). "Forgot password" sends Supabase's
 recovery email; the link opens the web app (`WEB_BASE_URL`), where the new
 password is chosen. `WEB_BASE_URL` must be in Supabase's redirect allow-list.
+
+### Connecting parents and children
+
+For a new parent, create their guardian record in the web panel and use
+**Invite by email**. They accept the invitation, set a password, and sign in
+using the same email address. Matching verified emails connect automatically.
+An invite code links an existing signed-in account to a guardian record; it
+does not create an account or replace a password.
+
+A school connection and a student link are separate. In **Students → student →
+Guardians → Add guardian → Existing guardian**, select the parent and save the
+relationship. Until a student is assigned, the app shows the connected school
+and explains that it is waiting for the school to link a child. **Check again**
+or pull to refresh loads newly assigned children without signing out.
+
+The connected waiting state requires web backend migration
+`20261018121200_guardian_account_context.sql`. Apply backend migrations before
+distributing this app version; the response change is compatible with older clients.
 
 ## Running
 

@@ -89,6 +89,7 @@
 
   "childrenTitle": "Çocuklarım",
   "noChildren": "Hesabınıza henüz bağlı bir çocuk yok.",
+  "waitingForStudentLink": "Okul bağlantınız hazır. Okuldan veli kaydınızı çocuğunuzla ilişkilendirmesini isteyin. Okul bu bağlantıyı eklediğinde çocuğunuzun bilgileri burada görünecek. Yenilemek için Tekrar kontrol et düğmesine dokunun.",
   "tabOverview": "Genel",
   "tabGrades": "Notlar",
   "tabAttendance": "Devamsızlık",

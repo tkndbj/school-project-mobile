@@ -56,6 +56,25 @@ void main() {
 
   group('ready', () {
     test(
+      'a school-connected guardian without children lands on parent home',
+      () {
+        const context = AccountContext(
+          userId: 'u1',
+          isPlatformAdmin: false,
+          memberships: [],
+          childrenCount: 0,
+          guardianSchools: [
+            GuardianSchool(schoolId: 's1', schoolName: 'School A'),
+          ],
+        );
+        const gate = ReadyGate(context, AppSide.parent);
+        expect(resolveRedirect(gate, Routes.splash), Routes.parent);
+        expect(resolveRedirect(gate, Routes.parent), isNull);
+        expect(resolveRedirect(gate, Routes.schoolStudents), Routes.parent);
+      },
+    );
+
+    test(
       'parent only lands on the children list and cannot open school routes',
       () {
         final gate = ReadyGate(account(children: 2), AppSide.parent);

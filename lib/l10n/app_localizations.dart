@@ -566,6 +566,12 @@ abstract class AppLocalizations {
   /// **'No children are connected to your account yet.'**
   String get noChildren;
 
+  /// No description provided for @waitingForStudentLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Your school connection is ready. Ask the school to link your guardian record to your child. Their information will appear here once the school adds that link. Tap Check again to refresh.'**
+  String get waitingForStudentLink;
+
   /// No description provided for @tabOverview.
   ///
   /// In en, this message translates to:

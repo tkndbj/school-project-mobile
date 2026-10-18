@@ -18,6 +18,9 @@ class ChildrenScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final children = ref.watch(childrenProvider);
+    final guardianSchools =
+        ref.watch(accountContextProvider).value?.guardianSchools ??
+        const <GuardianSchool>[];
     final canSwitch =
         ref
             .watch(accountContextProvider)
@@ -63,7 +66,28 @@ class ChildrenScreen extends ConsumerWidget {
           data: (items) {
             if (items.isEmpty) {
               return ScrollableCenter(
-                child: EmptyView(message: l10n.noChildren),
+                child: EmptyView(
+                  icon: guardianSchools.isEmpty
+                      ? Icons.inbox_outlined
+                      : Icons.check_circle_outline,
+                  message: guardianSchools.isEmpty
+                      ? l10n.noChildren
+                      : [
+                          for (final school in guardianSchools)
+                            l10n.inviteLinked(school.schoolName),
+                          '',
+                          l10n.waitingForStudentLink,
+                        ].join('\n'),
+                  action: OutlinedButton.icon(
+                    onPressed: () {
+                      ref
+                        ..invalidate(accountContextProvider)
+                        ..invalidate(childrenProvider);
+                    },
+                    icon: const Icon(Icons.refresh),
+                    label: Text(l10n.checkAgain),
+                  ),
+                ),
               );
             }
             return ListView.separated(

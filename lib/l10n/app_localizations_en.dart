@@ -269,6 +269,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noChildren => 'No children are connected to your account yet.';
 
   @override
+  String get waitingForStudentLink =>
+      'Your school connection is ready. Ask the school to link your guardian record to your child. Their information will appear here once the school adds that link. Tap Check again to refresh.';
+
+  @override
   String get tabOverview => 'Overview';
 
   @override

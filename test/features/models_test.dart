@@ -6,6 +6,30 @@ import 'package:school_platform/src/features/school/domain/school_models.dart';
 
 void main() {
   group('AccountContext', () {
+    test(
+      'a connected guardian can use the parent side before child assignment',
+      () {
+        final context = AccountContext.fromJson(const {
+          'user_id': 'u1',
+          'guardian_schools': [
+            {'school_id': 's1', 'school_name': 'School A'},
+          ],
+          'children_count': 0,
+        });
+        expect(context.guardianSchools.single.schoolName, 'School A');
+        expect(context.availableSides, {AppSide.parent});
+      },
+    );
+
+    test('older account payloads remain compatible', () {
+      final context = AccountContext.fromJson(const {
+        'user_id': 'u1',
+        'children_count': 1,
+      });
+      expect(context.guardianSchools, isEmpty);
+      expect(context.availableSides, {AppSide.parent});
+    });
+
     test('parses my_account_context() and derives sides', () {
       final context = AccountContext.fromJson(const {
         'user_id': 'u1',
